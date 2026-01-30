@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  schedule:
+    - cron:  '0 0 * * 0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Ruby for use with actions
+      uses: actions/setup-ruby@v1
+    - name: Test README.md
+      run: |
+        gem install awesome_bot
+        awesome_bot --allow-ssl --request-delay 1 README.md -w "dfir.org,reddit.com,securizame.com,forensicfocus.com,malwaretech.com/labs/,digital-forensics.it,blogspot.com"

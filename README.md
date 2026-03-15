@@ -1,4 +1,4 @@
-# Awesome Forensics [![Link Status](https://github.com/cugu/awesome-forensics/workflows/CI/badge.svg)](https://github.com/cugu/awesome-forensics)
+# Awesome Forensics [![Link Status](https://github.com/cugu/awesome-forensics/workflows/CI/badge.svg)](https://github.com/crim3hound/awesome-forensics)
 
 Curated list of awesome **free** (mostly open source) forensic analysis tools and resources.
 

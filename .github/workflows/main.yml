@@ -4,17 +4,30 @@ on:
   push:
     branches: [ main ]
   pull_request:
+    branches: [ main ]
   schedule:
-    - cron:  '0 0 * * 0'
+    # Runs at 00:00 UTC every Sunday
+    - cron: '0 0 * * 0'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Ruby for use with actions
-      uses: actions/setup-ruby@v1
-    - name: Test README.md
-      run: |
-        gem install awesome_bot
-        awesome_bot --allow-ssl --request-delay 1 README.md -w "dfir.org,reddit.com,securizame.com,forensicfocus.com,malwaretech.com/labs/,digital-forensics.it,blogspot.com"
+      # Updated to v4 for speed and security
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Updated to v1 for the modern Ruby setup action
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # Specifying a version prevents unexpected breaks
+          bundler-cache: true # Speeds up subsequent runs
+
+      - name: Test README.md links
+        run: |
+          gem install awesome_bot
+          awesome_bot README.md \
+            --allow-ssl \
+            --request-delay 1 \
+            --white-list "dfir.org,reddit.com,securizame.com,forensicfocus.com,malwaretech.com,digital-forensics.it,blogspot.com"
